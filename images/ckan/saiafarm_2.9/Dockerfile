@@ -98,6 +98,21 @@ RUN curl -o ${SRC_DIR}/get-pip.py https://bootstrap.pypa.io/get-pip.py && \
 # Fetch and build the default CKAN extensions
 RUN pip wheel --wheel-dir=/wheels git+${ENVVARS_GIT_URL}@${ENVVARS_GIT_BRANCH}#egg=ckanext-envvars
 
+###################
+### Extensions ####
+###################
+FROM ghcr.io/keitaroinc/ckan:2.9.3 as extbuild
+
+# Switch to the root user
+USER root
+
+# Install any system packages necessary to build extensions
+RUN apk add --no-cache python3-dev
+
+# Fetch and build the custom CKAN extensions
+RUN pip wheel --wheel-dir=/wheels git+https://github.com/okfn/ckanext-hidegroups.git#egg=ckanext-hidegroups
+RUN pip wheel --wheel-dir=wheels git+https://github.com/benjaminschwetz/ckanext-noanonaccess#egg=ckanext-noanonaccess
+
 ############
 ### MAIN ###
 ############
