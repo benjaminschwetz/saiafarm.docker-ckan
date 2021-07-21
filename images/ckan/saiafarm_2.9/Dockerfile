@@ -101,7 +101,6 @@ RUN pip wheel --wheel-dir=/wheels git+${ENVVARS_GIT_URL}@${ENVVARS_GIT_BRANCH}#e
 ###################
 ### Extensions ####
 ###################
-FROM ghcr.io/keitaroinc/ckan:2.9.3 as extbuild
 
 # Switch to the root user
 USER root
@@ -171,6 +170,11 @@ RUN pip install -e /srv/app/src/ckan && \
     pip install --no-index --find-links=/srv/app/wheels -r requirements.txt && \
     # Install default CKAN extensions
     pip install --no-index --find-links=/srv/app/ext_wheels ckanext-envvars && \
+    ## all extensions built above need to be installed here again
+    # why am I building them then???
+    # could probably skip that step.
+    pip install --no-index --find-links=/srv/app/ext_wheels ckanext-hidegroups && \
+    pip install --no-index --find-links=/srv/app/ext_wheels ckanext-noanonaccess && \
     # Create and update CKAN config
     # Set timezone
     echo "UTC" >  /etc/timezone && \
