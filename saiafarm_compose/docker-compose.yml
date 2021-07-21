@@ -9,7 +9,9 @@ volumes:
 services:
   ckan:
     container_name: ckan
-    image: ghcr.io/keitaroinc/ckan:${CKAN_VERSION}
+    build:
+      context: ../images/ckan/saiafarm_2.9
+      dockerfile: Dockerfile
     networks:
       - frontend
       - backend
