@@ -6,21 +6,22 @@
 MAINTENANCE_MODE=false
 
 # General Settings
+
+## CHANGE FOR PROD 
 CKAN_SITE_ID=default
 CKAN_SITE_URL=http://localhost:5000
 CKAN_PORT=5000
+# maybe too small?
 CKAN_MAX_UPLOAD_SIZE_MB=10
 # CKAN Plugins
-CKAN__PLUGINS=envvars image_view text_view recline_view datastore datapusher
+# PLUGINS ARE SET IN images/ckan/saiafarm_2.9/Dockerfile
+### CKAN__PLUGINS=envvars image_view text_view recline_view datastore datapusher
 # CKAN requires storage path to be set in order for filestore to be enabled
 CKAN__STORAGE_PATH=/srv/app/data
 CKAN__WEBASSETS__PATH=/srv/app/data/webassets
-# SYSADMIN settings, a sysadmin user is created automatically with the below credentials
-CKAN_SYSADMIN_NAME=sysadmin
-CKAN_SYSADMIN_PASSWORD=password
-CKAN_SYSADMIN_EMAIL=sysadmin@ckantest.com
 
 # Email settings
+# change this later
 CKAN_SMTP_SERVER=smtp.corporateict.domain:25
 CKAN_SMTP_STARTTLS=True
 CKAN_SMTP_USER=user
@@ -30,3 +31,21 @@ CKAN_SMTP_MAIL_FROM=ckan@localhost
 # Datapusher configuration
 CKAN__DATAPUSHER__URL=http://datapusher:8000
 CKAN__DATAPUSHER__CALLBACK_URL_BASE=http://ckan:5000/
+
+
+# Privacy Settings
+
+CKAN__AUTH__ANON_CREATE_DATASET=FALSE
+CKAN__AUTH__CREATE_UNOWNED_DATASET=FALSE
+CKAN__AUTH__CREATE_DATASET_IF_NOT_IN_ORGANIZATION=FALSE
+CKAN__AUTH__USER_CREATE_GROUPS=FALSE
+CKAN__AUTH__USER_CREATE_ORGANIZATIONS=FALSE
+CKAN__AUTH__USER_DELETE_GROUPS=FALSE
+CKAN__AUTH__USER_DELETE_ORGANIZATIONS=FALSE
+CKAN__AUTH__CREATE_USER_VIA_API=FALSE
+CKAN__AUTH__CREATE_USER_VIA_WEB=FALSE
+CKAN__AUTH__ROLES_THAT_CASCADE_TO_SUB_GROUPS=ADMIN
+CKAN__AUTH__PUBLIC_USER_DETAILS=FALSE
+CKAN__AUTH__PUBLIC_ACTIVITY_STREAM_DETAIL=FALSE
+CKAN__AUTH__ALLOW_DATASET_COLLABORATORS=FALSE
+CKAN__AUTH__CREATE_DEFAULT_API_KEYS=FALSE
